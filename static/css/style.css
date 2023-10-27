@@ -93,7 +93,7 @@ span a:hover {
 } 
 
 .edit-div{
-    width: 17%;
+    width: 18%;
 }
 
 .edit-div input[type="submit"]{
@@ -108,4 +108,8 @@ span a:hover {
 #link-setor:hover{
     text-decoration: none;
     color: #0056b3;
+}
+
+#table-func{
+    width: 1000px;
 }

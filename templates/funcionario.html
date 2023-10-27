@@ -27,6 +27,8 @@
             <th class="th-head">Data admissão</th>
             <th class="th-head">Ativo</th>
             <th class="th-head">Setor</th>
+            <th class="th-head">Cargo</th>
+            <th class="th-head">Opções</th>
         </tr>
     </thead>
     <tbody>
@@ -51,10 +53,58 @@
         <td>
             {{funcionario.setor.nome}}
         </td>
+        <td>
+            {{funcionario.cargos.nome}}
+        </td>
+    <td>
+        <form action="{{ url_for('delete_funcionario', id=funcionario.id, id_setor=funcionario.id_setor) }}" method="post" style="display: inline;">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="Excluir">
+        </form>
+        <span><a href="{{ url_for('edit_funcionario', id=funcionario.id, id_setor=funcionario.id_setor) }}">Editar</a><span>
+    </td>
     </tr>
     {% endfor %}
-     </tbody>
-     </table>
+    <tr>
+        <form action="/funcionarios/{{ id_setor }}" method="post">
+        {% for field in form %}
+            {% if field.name != 'csrf_token' %}
+                <td>{{ field() }}</td>
+            {% else %}
+                {{ field() }}
+            {% endif %}
+        {% endfor %}
+        </form>
+    </tr>  
+    </tbody>
+    </table>
+    {% else %}
+        <div class="edit-div">
+        <h1>Adicionar funcionário</h1>
+        <table id="table-func">
+        <thead>
+        <tr>
+            <th class="th-head">Nome</th>
+            <th class="th-head">Sobrenome</th>
+            <th class="th-head">Data admissão</th>
+            <th class="th-head">Ativo</th>
+            <th class="th-head">Setor</th>
+            <th class="th-head">Cargo</th>
+            <th class="th-head">Opções</th>
+        </tr>
+        </thead>
+            <tr>
+                <form action="/funcionarios/{{ id_setor }}" method="post">
+                {% for field in form %}
+                    {% if field.name != 'csrf_token' %}
+                        <td>{{ field() }}</td>
+                    {% else %}
+                        {{ field() }}
+                    {% endif %}
+                {% endfor %}
+                </form>
+            </tr>
+            </table>
     {% endif %}
     </div>
 </body>
