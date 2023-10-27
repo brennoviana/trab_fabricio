@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='main.js') }}" defer></script>
+    <title>funcionários</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    {% if funcionarios%}
+    <div>
+    <h1>Lista de Funcionários</h1>
+    <table border="1" class="tabela">
+    <thead>
+        <tr>
+            <th class="th-head">Nome</th>
+            <th class="th-head">Sobrenome</th>
+            <th class="th-head">Data admissão</th>
+            <th class="th-head">Ativo</th>
+            <th class="th-head">Setor</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for funcionario in funcionarios %}
+    <tr>
+        <td>
+            {{funcionario.primeiro_nome}}    
+        </td>
+         <td>
+            {{funcionario.sobrenome}}    
+        </td> 
+        <td>
+            {{funcionario.data_admissao}}    
+        </td> 
+        <td>
+            {% if funcionario.status_funcionario %}
+            Sim
+            {% else %}
+            Não
+            {% endif %}
+        </td>
+        <td>
+            {{funcionario.setor.nome}}
+        </td>
+    </tr>
+    {% endfor %}
+     </tbody>
+     </table>
+    {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='main.js') }}" defer></script>
+    <title>Setores</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    {% if setores %}
+    <div>
+        <h1>Lista de Setores</h1>
+        <table border="1" class="tabela">
+        <thead>
+            <tr>
+                <th class="th-head">Setores</th>
+                <th class="th-head">Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for setor in setores %}
+                <tr>
+                    <td><a id="link-setor"href="{{ url_for('get_funcionarios', id_setor=setor.id) }}">{{ setor.nome }}</a></td>
+                    <td><form action="{{ url_for('delete_setor', id=setor.id) }}" method="post" style="display: inline;">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="submit" value="Excluir">
+                    </form>
+                    <span><a href="{{ url_for('edit_setor', id=setor.id) }}">Editar</a><span></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+            <tfoot>
+                <form action="/" method="post">
+                    <th class="th-setor">  
+                            {{ form.hidden_tag() }}
+                            {{ form.nome_setor()}}
+                    </th>
+                    <th class="th-setor">
+                            {{ form.submit_setor() }}  
+                    </th>
+                </form>
+        </tfoot>
+        </table>
+    {% else %}
+        <div class="edit-div">
+        <h1>Adicionar setor</h1>
+
+       <form action="/" method="post">
+            {{ form.hidden_tag() }}
+            {{ form.nome_setor()}}
+            {{ form.submit_setor() }}  
+        </form>
+        </div>
+    {% endif %}
+    </div>
+</body>
+</html>
