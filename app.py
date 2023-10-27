@@ -1,5 +1,6 @@
+from sqlalchemy import desc
 from config import app, db
-from models import Setor
+from models import Setor, Funcionarios
 from flask import render_template, request, redirect, flash
 from forms import *
 
@@ -55,6 +56,13 @@ def edit_setor(id):
         return redirect('/')
 
     return render_template('edit_setor.html', form=form, setor=setor)
+
+@app.route('/funcionarios/<id_setor>', methods=['GET'])
+def get_funcionarios(id_setor):
+
+    funcionarios = Funcionarios.query.filter_by(id_setor=id_setor).order_by(desc(Funcionarios.status_funcionario)).all()
+
+    return render_template('funcionario.html', funcionarios=funcionarios)
 
 if __name__ == '__main__':  
     app.run(debug=True)

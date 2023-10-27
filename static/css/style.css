@@ -72,7 +72,7 @@ input[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-a {
+span a {
     display: inline-block;
     padding: 10px 15px;
     background-color: #007BFF;
@@ -84,7 +84,7 @@ a {
     transition: background-color 0.3s;
 }
 
-a:hover {
+span a:hover {
     background-color: #0056b3;
 }
 
@@ -98,4 +98,14 @@ a:hover {
 
 .edit-div input[type="submit"]{
     margin-top: 10px;
+}
+
+#link-setor{
+    text-decoration: none;
+    color: black;
+}
+
+#link-setor:hover{
+    text-decoration: none;
+    color: #0056b3;
 }
